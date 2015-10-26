@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Campus Locator</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="button_academics">Academics</string>
+    <string name="button_dining">Dining Halls</string>
+    <string name="button_housing">Dormitories</string>
+    <string name="button_activities">Rec Centers</string>
+    <string name="button_other">Other</string>
+
+    <string name="title_activity_academics">Academics</string>
+    <string name="title_activity_dining">Dining</string>
+    <string name="title_activity_housing">Housing</string>
+    <string name="title_activity_activities">Recreation</string>
+    <string name="title_activity_other">Other Elon Buildings</string>
+
+    <string-array name="dining">
+        <item>Acorn Coffee Shop</item>
+        <item>Biscuitville</item>
+        <item>Colonnades Dining Hall</item>
+        <item>Freshi</item>
+        <item>Fountain Market</item>
+        <item>Lakeside Dining Hall</item>
+        <item>McEwen Dining Hall</item>
+    </string-array>
+
+    <string-array name="academics">
+        <item>Alamance</item>
+        <item>Arts West</item>
+        <item>Carol Grotnes Belk Library</item>
+        <item>Caroline E. Powell</item>
+        <item>Dalton L. McMichael, Sr. Science Center</item>
+        <item>Duke</item>
+        <item>Kourey Business Center</item>
+        <item>Lindler</item>
+        <item>Long</item>
+        <item>McEwen Communications</item>
+        <item>Mooney</item>
+    </string-array>
+
+    <string-array name="housing">
+        <item>Colonnade Neighborhood</item>
+        <item>Danieley Neighborhood</item>
+        <item>Global Neighborhood</item>
+        <item>Historic Neighborhood</item>
+        <item>Loy Center Neighborhood</item>
+        <item>Oaks Neighborhood</item>
+        <item>Station at Mill Point</item>
+    </string-array>
+
+    <string-array name="activities">
+        <item>Alumni Gym</item>
+        <item>East Gym</item>
+        <item>McCrary Theatre Center for the Arts</item>
+        <item>Phoenix Softball Field</item>
+        <item>Recreation Fields</item>
+        <item>Rhodes Stadium</item>
+    </string-array>
+
+    <string-array name="other">
+        <item>Campus Technology Support</item>
+        <item>Caroline D. McCoy Commons, Campus Safety and Police</item>
+        <item>Inman Admissions Welcome Center</item>
+        <item>Moseley Center</item>
+        <item>R.N. Ellington Center for Health and Wellness</item>
+    </string-array>
+</resources>
