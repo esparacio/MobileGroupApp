@@ -5,147 +5,68 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_margin_custom"
     android:paddingBottom="@dimen/activity_margin_custom"
+    android:background="@color/elon_gold"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/icon_width_height"
+        android:background="@drawable/academic_bar"
+        android:onClick="launchAcademics"
+        />
 
-        <Button
-            android:layout_width="@dimen/icon_width_height"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginLeft="@dimen/button_padding_margin"
-            android:background="@drawable/academicicon"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/elon_red" />
 
-            />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_width_height"
+        android:background="@drawable/dining_bar"
+        android:onClick="launchDining"
+        />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginRight="@dimen/button_padding_margin"
-            android:text="@string/button_academics"
-            android:onClick="launchAcademics"
-            />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/elon_red" />
 
-    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_width_height"
+        android:background="@drawable/housing_bar"
+        android:onClick="launchHousing"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/elon_red" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_width_height"
+        android:background="@drawable/rec_bar"
+        android:onClick="launchActivities"
+        />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/view_height"
-        android:layout_margin="@dimen/view_padding_margin"
         android:background="@color/elon_red" />
 
-    <LinearLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="@dimen/icon_width_height"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginLeft="@dimen/button_padding_margin"
-            android:background="@drawable/food_dining_icon"
-
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginRight="@dimen/button_padding_margin"
-            android:text="@string/button_dining"
-            android:onClick="launchDining"
-            />
-
-    </LinearLayout>
+        android:layout_height="@dimen/icon_width_height"
+        android:background="@drawable/other_bar"
+        android:onClick="launchOther"
+        />
 
     <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/view_height"
-        android:layout_margin="@dimen/view_padding_margin"
-        android:background="@color/elon_red" />
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="@dimen/icon_width_height"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginLeft="@dimen/button_padding_margin"
-            android:background="@drawable/house2"
-
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginRight="@dimen/button_padding_margin"
-            android:text="@string/button_housing"
-            android:onClick="launchHousing"
-            />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
         android:layout_height="@dimen/view_height"
-        android:layout_margin="@dimen/view_padding_margin"
-        android:background="@color/elon_red" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="@dimen/icon_width_height"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginLeft="@dimen/button_padding_margin"
-            android:background="@drawable/weighticon"
-
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginRight="@dimen/button_padding_margin"
-            android:text="@string/button_activities"
-            android:onClick="launchActivities"
-            />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/view_height"
-        android:layout_margin="@dimen/view_padding_margin"
-        android:background="@color/elon_red" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="@dimen/icon_width_height"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginLeft="@dimen/button_padding_margin"
-            android:background="@drawable/academicicon"
-
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_width_height"
-            android:layout_marginRight="@dimen/button_padding_margin"
-            android:text="@string/button_other"
-            android:onClick="launchOther"
-            />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/view_height"
-        android:layout_margin="@dimen/view_padding_margin"
-        android:background="@color/elon_red" />
+    android:background="@color/elon_red" />
 
 </LinearLayout>

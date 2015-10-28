@@ -1,17 +1,16 @@
 <resources>
-    <string name="app_name">Campus Locator</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Around Campus</string>
 
     <string name="button_academics">Academics</string>
     <string name="button_dining">Dining Halls</string>
     <string name="button_housing">Dormitories</string>
-    <string name="button_activities">Rec Centers</string>
+    <string name="button_recreation">Rec Centers</string>
     <string name="button_other">Other</string>
 
     <string name="title_activity_academics">Academics</string>
     <string name="title_activity_dining">Dining</string>
     <string name="title_activity_housing">Housing</string>
-    <string name="title_activity_activities">Recreation</string>
+    <string name="title_activity_recreation">Recreation</string>
     <string name="title_activity_other">Other Elon Buildings</string>
 
     <string-array name="dining">

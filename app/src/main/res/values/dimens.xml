@@ -4,11 +4,9 @@
 
     <dimen name="activity_margin_custom">5dp</dimen>
 
-    <dimen name="icon_width_height">75dp</dimen>
+    <dimen name="icon_width_height">85dp</dimen>
     <dimen name="view_height">5dp</dimen>
 
-    <dimen name="view_padding_margin">5dp</dimen>
-    <dimen name="button_padding_margin">10dp</dimen>
 
 
 </resources>

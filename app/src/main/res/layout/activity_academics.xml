@@ -5,6 +5,7 @@
     android:paddingRight="@dimen/activity_margin"
     android:paddingTop="@dimen/activity_margin"
     android:paddingBottom="@dimen/activity_margin"
+    android:background="@color/elon_gold"
     tools:context="edu.pwageselon.campuslocator.AcademicsActivity">
 
     <ListView

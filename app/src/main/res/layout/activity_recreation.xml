@@ -5,13 +5,13 @@
     android:paddingRight="@dimen/activity_margin"
     android:paddingTop="@dimen/activity_margin"
     android:paddingBottom="@dimen/activity_margin"
-    tools:context="edu.pwageselon.campuslocator.ActivitiesActivity">
+    android:background="@color/elon_gold"
+    tools:context="edu.pwageselon.campuslocator.RecreationActivity">
 
     <ListView
-        android:id="@+id/listviewactivities"
+        android:id="@+id/listviewrecreation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:entries="@array/activities">
+        android:layout_height="match_parent">
     </ListView>
 
 </RelativeLayout>
