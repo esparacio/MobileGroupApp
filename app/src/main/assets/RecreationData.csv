@@ -1,1 +1,6 @@
-Names ,Latitude,Longitude ,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,SundayIntramural Fields,36.100467,-79.499002,A,A,A,A,A,A,AGym,36.103831,-79.505153,0600-2400,0600-2400,0600-2400,0600-2400,0600-2200,1000-2400,1000-2400Tennis Courts,36.102154,-79.50011,A,A,A,A,A,A,AFootball Field,36.109895,-79.50776,A,A,A,A,A,A,ATrack,36.110363,-79.506172,A,A,A,A,A,A,A
+Names ,Latitude,Longitude ,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+Intramural Fields,36.100467,-79.499002,A,A,A,A,A,A,A
+Alumni Gym,36.103831,-79.505153,0600-2400,0600-2400,0600-2400,0600-2400,0600-2200,1000-2400,1000-2400
+Tennis Courts,36.102154,-79.50011,A,A,A,A,A,A,A
+Football Field,36.109895,-79.50776,A,A,A,A,A,A,A
+Track,36.110363,-79.506172,A,A,A,A,A,A,A

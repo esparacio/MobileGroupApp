@@ -53,6 +53,10 @@ public class RecreationActivity extends Activity {
                     monday = "Open All Day";
                 }
 
+                if (monday.equals("n") || monday.equals("N")) {
+                    monday = "Closed All Day";
+                }
+
                 adapter.add(name);
 //                adapter.add(latitude);
 //                adapter.add(longitude);
