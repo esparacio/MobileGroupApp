@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_margin"
     android:paddingBottom="@dimen/activity_margin"
     android:background="@color/elon_gold"
-    tools:context="edu.pwageselon.campuslocator.OtherActivity">
+    tools:context="edu.pwageselon.elonlocator.OtherActivity">
 
     <ListView
         android:id="@+id/listviewother"

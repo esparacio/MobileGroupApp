@@ -6,13 +6,13 @@
     android:paddingTop="@dimen/activity_margin"
     android:paddingBottom="@dimen/activity_margin"
     android:background="@color/elon_gold"
-    tools:context="edu.pwageselon.campuslocator.AcademicsActivity">
+    tools:context="edu.pwageselon.elonlocator.AcademicsActivity">
 
     <ListView
         android:id="@+id/listviewacademics"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:entries="@array/academics">
+        >
     </ListView>
 
 </RelativeLayout>

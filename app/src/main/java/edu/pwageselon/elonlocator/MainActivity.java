@@ -1,4 +1,4 @@
-package edu.pwageselon.campuslocator;
+package edu.pwageselon.elonlocator;
 
 import android.app.Activity;
 import android.content.Intent;

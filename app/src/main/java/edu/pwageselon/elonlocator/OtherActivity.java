@@ -1,15 +1,16 @@
-package edu.pwageselon.campuslocator;
+package edu.pwageselon.elonlocator;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class OtherActivity extends Activity {
 
@@ -18,12 +19,17 @@ public class OtherActivity extends Activity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
 
+    private ArrayList<Building> buildings = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other);
 
         listView = (ListView) findViewById(R.id.listviewother);
+        listView.setOnItemClickListener(onItemClickListener);
+        listView.setOnItemLongClickListener(onItemLongClickListener);
+
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
         BufferedReader reader = null;
@@ -49,24 +55,14 @@ public class OtherActivity extends Activity {
             String saturday = rowData[8];
             String sunday = rowData[9];
 
-            if (monday.equals("a") || monday.equals("A")) {
-                monday = "Open All Day";
-            }
-
-            if (monday.equals("n") || monday.equals("N")) {
-                monday = "Closed All Day";
-            }
-
             adapter.add(name);
-//                adapter.add(latitude);
-//                adapter.add(longitude);
-            adapter.add(monday);
-//                adapter.add(tuesday);
-//                adapter.add(wednesday);
-//                adapter.add(thursday);
-//                adapter.add(friday);
-//                adapter.add(saturday);
-//                adapter.add(sunday);
+            Building building = new Building(name, latitude, longitude, monday, tuesday,
+                    wednesday, thursday, friday, saturday, sunday);
+
+            buildings.add(building);
+
+            adapter.add("" + building.getMondayDate());
+
         }
     } catch (IOException e) {
         e.printStackTrace();
@@ -80,4 +76,23 @@ public class OtherActivity extends Activity {
         }
     }
 }
+
+    AdapterView.OnItemClickListener onItemClickListener =
+            new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String which = listView.getItemAtPosition(i).toString();
+                }
+            };
+
+    AdapterView.OnItemLongClickListener onItemLongClickListener =
+            new AdapterView.OnItemLongClickListener() {
+
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String which = listView.getItemAtPosition(i).toString();
+                    return true;
+                }
+            };
 }
