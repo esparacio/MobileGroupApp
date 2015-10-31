@@ -62,6 +62,7 @@ public class AcademicsActivity extends Activity {
                 buildings.add(building);
 
                 adapter.add(name);
+                adapter.add("" + building.isCurrentlyOpen());
 
             }
         } catch (IOException e) {

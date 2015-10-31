@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DiningActivity extends Activity {
 
@@ -62,6 +63,18 @@ public class DiningActivity extends Activity {
                 buildings.add(building);
 
                 adapter.add(name);
+                adapter.add("" + building.isCurrentlyOpen());
+
+                int times = 0;
+                int multitimes = 0;
+                if (building.getTimeClose() != null) {
+                    times = building.getTimeClose().length;
+                }
+
+                if (building.getTimeOpen() != null) {
+                    multitimes = building.getTimeOpen().length;
+                }
+                adapter.add("Times: " + times + " Multitimes: " + multitimes);
             }
         } catch (IOException e) {
             e.printStackTrace();
