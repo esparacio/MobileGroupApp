@@ -1,6 +1,8 @@
 package edu.pwageselon.elonlocator;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +32,7 @@ public class RecreationActivity extends Activity {
         listView.setOnItemClickListener(onItemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
 
         BufferedReader reader = null;
 
@@ -55,13 +57,11 @@ public class RecreationActivity extends Activity {
                 String saturday = rowData[8];
                 String sunday = rowData[9];
 
-                adapter.add(name);
                 Building building = new Building(name, latitude, longitude, monday, tuesday,
                         wednesday, thursday, friday, saturday, sunday);
-
                 buildings.add(building);
 
-                adapter.add("" + building.getMondayDate());
+                adapter.add(name);
 
             }
         } catch (IOException e) {
@@ -82,7 +82,19 @@ public class RecreationActivity extends Activity {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String which = listView.getItemAtPosition(i).toString();
+                    Building current = buildings.get(i);
+
+                    Intent intent = new Intent(RecreationActivity.this, DialogActivity.class);
+                    intent.putExtra("name", current.getName());
+                    intent.putExtra("monday", current.getMondayDate());
+                    intent.putExtra("tuesday", current.getTuesdayDate());
+                    intent.putExtra("wednesday", current.getWednesdayDate());
+                    intent.putExtra("thursday", current.getThursdayDate());
+                    intent.putExtra("friday", current.getFridayDate());
+                    intent.putExtra("saturday", current.getSaturdayDate());
+                    intent.putExtra("sunday", current.getSundayDate());
+
+                    startActivity(intent);
                 }
             };
 
@@ -91,8 +103,14 @@ public class RecreationActivity extends Activity {
 
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String which = listView.getItemAtPosition(i).toString();
+                    Building current = buildings.get(i);
+
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?daddr=" + current.getLatitude() + "," + current.getLongitude()));
+                    startActivity(intent);
+
                     return true;
                 }
             };
 }
+

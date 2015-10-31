@@ -13,5 +13,18 @@
     <string name="title_activity_recreation">Recreation</string>
     <string name="title_activity_other">Other Elon Buildings</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_dialog">Hours of Operation</string>
+
+
+    <string name="monday">Monday:</string>
+    <string name="tuesday">Tuesday:</string>
+    <string name="wednesday">Wednesday:</string>
+    <string name="thursday">Thursday:</string>
+    <string name="friday">Friday:</string>
+    <string name="saturday">Saturday:</string>
+    <string name="sunday">Sunday:</string>
+
+    <string name="placeholder">07:00 AM - 08:00 PM</string>
+    <string name="okay_button">OK</string>
 
 </resources>
