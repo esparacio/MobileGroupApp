@@ -17,12 +17,9 @@ public class Building {
     private String mondayDate, tuesdayDate, wednesdayDate, thursdayDate, fridayDate,
             saturdayDate, sundayDate;
 
-    private String[] mondayTimes, mondayMultipleTimes, tuesdayTimes, tuesdayMultipleTimes,
-            wednesdayTimes, wednesdayMultipleTimes, thursdayTimes, thursdayMultipleTimes, fridayTimes,
-            fridayMultipleTimes, saturdayTimes, saturdayMultipleTimes, sundayTimes, sundayMultipleTimes;
-
     private boolean currentlyOpen = false;
 
+    private Calendar today = Calendar.getInstance();
     private Calendar timeOpen = Calendar.getInstance();
     private Calendar timeClose = Calendar.getInstance();
 
@@ -48,98 +45,73 @@ public class Building {
         this.sunday = sunday;
 
         formatTimes();
-        checkIfOpen();
-
+        currentlyOpen = checkIfOpen();
+        System.out.println(currentlyOpen);
     }
 
-    private void checkIfOpen() {
-        Calendar today = Calendar.getInstance();
+    private boolean checkIfOpen() {
         int dayOfTheWeek = today.get(Calendar.DAY_OF_WEEK);
-
-        try {
             switch (dayOfTheWeek) {
                 case Calendar.MONDAY:
-                    if (mondayDate.equals("Open All Day")) {
-                        currentlyOpen = true;
-                    } else if (mondayDate.equals("Closed All Day")) {
-                        currentlyOpen = false;
-                    }
+                    return doCheck(monday);
+
                 case Calendar.TUESDAY:
+                    return doCheck(tuesday);
 
                 case Calendar.WEDNESDAY:
+                    return doCheck(wednesday);
 
                 case Calendar.THURSDAY:
+                    return doCheck(thursday);
 
                 case Calendar.FRIDAY:
+                    return doCheck(friday);
 
                 case Calendar.SATURDAY:
-                    if (saturdayDate.equals("Open All Day")) {
-                        currentlyOpen = true;
-                    } else if (saturdayDate.equals("Closed All Day")) {
-                        currentlyOpen = false;
-                    } else if (saturdayMultipleTimes == null) {
-                             timeOpen.setTime(simpleDateFormat.parse(saturdayTimes[0]));
-                             timeClose.setTime(simpleDateFormat.parse(saturdayTimes[1]));
-                            if (timeOpen.after(timeClose)) {
-                                Calendar nextDay = Calendar.getInstance();
-                                nextDay.setTime(timeClose.getTime());
-                                nextDay.add(Calendar.DATE, 1);
-                                timeClose.setTime(nextDay.getTime());
-                            }
-                            if (today.after(timeOpen.getTime()) && today.before(timeClose.getTime())) {
-                                currentlyOpen = true;
-                            }
-                    } else if (saturdayMultipleTimes.length < 0) {
-                        for (int i = 0; i < saturdayMultipleTimes.length; i++) {
-                            saturdayTimes = saturdayMultipleTimes[i].split("-");
-                            for (int t = 0; t < saturdayTimes.length - 1; t += 2) {
-                                 timeOpen.setTime(simpleDateFormat.parse(saturdayTimes[t]));
-                                 timeClose.setTime(simpleDateFormat.parse(saturdayTimes[t + 1]));
-                                if (timeOpen.after(timeClose)) {
-                                    Calendar nextDay = Calendar.getInstance();
-                                    nextDay.setTime(timeClose.getTime());
-                                    nextDay.add(Calendar.DATE, 1);
-                                    timeClose.setTime(nextDay.getTime());
-                                }
-                                if (today.after(timeOpen) && today.before(timeClose)) {
-                                    currentlyOpen = true;
-                                }
-                            }
-                        }
-                    }
+                    return doCheck(saturday);
 
                 case Calendar.SUNDAY:
+                    return doCheck(sunday);
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        return false;
     }
 
     private void formatTimes() {
-        if (monday.equals("a") || monday.equals("A")) {
-            mondayDate = "Open All Day";
-        } else if (monday.equals("n") || monday.equals("N")) {
-            mondayDate = "Closed All Day";
-        } else {
-            if (monday.contains(";")) {
-                mondayMultipleTimes = monday.split(";");
+        mondayDate = doFormat(monday);
+        tuesdayDate = doFormat(tuesday);
+        wednesdayDate = doFormat(wednesday);
+        thursdayDate = doFormat(thursday);
+        fridayDate = doFormat(friday);
+        saturdayDate = doFormat(saturday);
+        sundayDate = doFormat(sunday);
+    }
 
-                for (String mondayMultipleTime : mondayMultipleTimes) {
-                    mondayTimes = mondayMultipleTime.split("-");
+    private String doFormat(String hours) {
+        String formattedHours = "";
+        if (hours.equals("a") || hours.equals("A")) {
+            return "Open All Day";
+        } else if (hours.equals("n") || hours.equals("N")) {
+            return "Closed All Day";
+        } else {
+            if (hours.contains(";")) {
+                String[] multipleTimes = hours.split(";");
+
+                for (String multipleTime : multipleTimes) {
+                    String[] times = multipleTime.split("-");
                     try {
-                        for (int t = 0; t < mondayTimes.length - 1; t += 2) {
+                        for (int t = 0; t < times.length - 1; t += 2) {
                             Date date;
-                            if (mondayDate == null) {
-                                date = simpleDateInput.parse(mondayTimes[t]);
-                                mondayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(mondayTimes[t + 1]);
-                                mondayDate += " - " + simpleDateFormat.format(date);
+                            if (formattedHours.equals("")) {
+                                date = simpleDateInput.parse(times[t]);
+                                formattedHours = "" + simpleDateFormat.format(date);
+                                date = simpleDateInput.parse(times[t + 1]);
+                                formattedHours += " - " + simpleDateFormat.format(date);
 
                             } else {
-                                date = simpleDateInput.parse(mondayTimes[t]);
-                                mondayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(mondayTimes[t + 1]);
-                                mondayDate += " - " + simpleDateFormat.format(date);
+                                date = simpleDateInput.parse(times[t]);
+                                formattedHours += ",\n" + simpleDateFormat.format(date);
+                                date = simpleDateInput.parse(times[t + 1]);
+                                formattedHours += " - " + simpleDateFormat.format(date);
                             }
                         }
                     } catch (ParseException e) {
@@ -148,16 +120,16 @@ public class Building {
                 }
 
             } else {
-                mondayTimes = monday.split("-");
+                String[] multipleTimes = hours.split("-");
                 try {
-                    for (String mondayTime : mondayTimes) {
+                    for (String times : multipleTimes) {
                         Date date;
-                        if (mondayDate == null) {
-                            date = simpleDateInput.parse(mondayTime);
-                            mondayDate = "" + simpleDateFormat.format(date);
+                        if (formattedHours.equals("")) {
+                            date = simpleDateInput.parse(times);
+                            formattedHours = "" + simpleDateFormat.format(date);
                         } else {
-                            date = simpleDateInput.parse(mondayTime);
-                            mondayDate += " - " + simpleDateFormat.format(date);
+                            date = simpleDateInput.parse(times);
+                            formattedHours += " - " + simpleDateFormat.format(date);
                         }
                     }
                 } catch (ParseException e) {
@@ -165,306 +137,58 @@ public class Building {
                 }
             }
         }
+        return formattedHours;
+    }
 
-        if (tuesday.equals("a") || tuesday.equals("A")) {
-            tuesdayDate = "Open All Day";
-        } else if (tuesday.equals("n") || tuesday.equals("N")) {
-            tuesdayDate = "Closed All Day";
+    private boolean doCheck(String hours) {
+
+        if (hours.equals("a") || hours.equals("A")) {
+            return true;
+        } else if (hours.equals("n") || hours.equals("N")) {
+            return false;
         } else {
-            if (tuesday.contains(";")) {
-                tuesdayMultipleTimes = tuesday.split(";");
+            if (hours.contains(";")) {
+                String[] multipleTimes = hours.split(";");
 
-                for (String tuesdayMultipleTime : tuesdayMultipleTimes) {
-                    tuesdayTimes = tuesdayMultipleTime.split("-");
-                    try {
-                        for (int t = 0; t < tuesdayTimes.length - 1; t += 2) {
-                            Date date;
-                            if (tuesdayDate == null) {
-                                date = simpleDateInput.parse(tuesdayTimes[t]);
-                                tuesdayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(tuesdayTimes[t + 1]);
-                                tuesdayDate += " - " + simpleDateFormat.format(date);
+                for (String multipleTime : multipleTimes) {
+                    String[] times = multipleTime.split("-");
+                    for (int t = 0; t < times.length - 1; t += 2) {
+                        String openHour = "" + times[t].charAt(0) + times[t].charAt(1);
+                        String openMinute = "" + times[t].charAt(2) + times[t].charAt(3);
+                        timeOpen.set(Calendar.HOUR_OF_DAY, Integer.parseInt(openHour));
+                        timeOpen.set(Calendar.MINUTE, Integer.parseInt(openMinute));
+                        String closeHour = "" + times[t + 1].charAt(0) + times[t + 1].charAt(1);
+                        String closeMinute = "" + times[t+1].charAt(2) + times[t+1].charAt(3);
+                        timeClose.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closeHour));
+                        timeClose.set(Calendar.MINUTE, Integer.parseInt(closeMinute));
 
-                            } else {
-                                date = simpleDateInput.parse(tuesdayTimes[t]);
-                                tuesdayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(tuesdayTimes[t + 1]);
-                                tuesdayDate += " - " + simpleDateFormat.format(date);
-                            }
+                        System.out.println("TODAY: " + today.getTime() + " CLOSE: " + timeClose.getTime() + " OPEN: " + timeOpen.getTime());
+
+                        if (today.after(timeOpen) &&  today.before(timeClose)) {
+                            return false;
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     }
                 }
 
             } else {
-                tuesdayTimes = tuesday.split("-");
-                try {
-                    for (String tuesdayTime : tuesdayTimes) {
-                        Date date;
-                        if (tuesdayDate == null) {
-                            date = simpleDateInput.parse(tuesdayTime);
-                            tuesdayDate = "" + simpleDateFormat.format(date);
-                        } else {
-                            date = simpleDateInput.parse(tuesdayTime);
-                            tuesdayDate += " - " + simpleDateFormat.format(date);
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                String[] multipleTimes = hours.split("-");
+                String openHour = "" + multipleTimes[0].charAt(0) + multipleTimes[0].charAt(1);
+                String openMinute = "" + multipleTimes[0].charAt(2) + multipleTimes[0].charAt(3);
+                timeOpen.set(Calendar.HOUR_OF_DAY, Integer.parseInt(openHour));
+                timeOpen.set(Calendar.MINUTE, Integer.parseInt(openMinute));
+                String closeHour = "" + multipleTimes[1].charAt(0) + multipleTimes[1].charAt(1);
+                String closeMinute = "" + multipleTimes[1].charAt(2) + multipleTimes[1].charAt(3);
+                timeClose.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closeHour));
+                timeClose.set(Calendar.MINUTE, Integer.parseInt(closeMinute));
+
+                System.out.println("222TODAY: " + today.getTime() + " CLOSE: " + timeClose.getTime() + " OPEN: " + timeOpen.getTime());
+
+                if (today.after(timeOpen) &&  today.before(timeClose)) {
+                    return false;
                 }
             }
         }
-
-        if (wednesday.equals("a") || wednesday.equals("A")) {
-            wednesdayDate = "Open All Day";
-        } else if (wednesday.equals("n") || wednesday.equals("N")) {
-            wednesdayDate = "Closed All Day";
-        } else {
-            if (wednesday.contains(";")) {
-                wednesdayMultipleTimes = wednesday.split(";");
-
-                for (String wednesdayMultipleTime : wednesdayMultipleTimes) {
-                    wednesdayTimes = wednesdayMultipleTime.split("-");
-                    try {
-                        for (int t = 0; t < wednesdayTimes.length - 1; t += 2) {
-                            Date date;
-                            if (wednesdayDate == null) {
-                                date = simpleDateInput.parse(wednesdayTimes[t]);
-                                wednesdayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(wednesdayTimes[t + 1]);
-                                wednesdayDate += " - " + simpleDateFormat.format(date);
-
-                            } else {
-                                date = simpleDateInput.parse(wednesdayTimes[t]);
-                                wednesdayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(wednesdayTimes[t + 1]);
-                                wednesdayDate += " - " + simpleDateFormat.format(date);
-                            }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-                wednesdayTimes = wednesday.split("-");
-                try {
-                    for (String wednesdayTime : wednesdayTimes) {
-                        Date date;
-                        if (wednesdayDate == null) {
-                            date = simpleDateInput.parse(wednesdayTime);
-                            wednesdayDate = "" + simpleDateFormat.format(date);
-                        } else {
-                            date = simpleDateInput.parse(wednesdayTime);
-                            wednesdayDate += " - " + simpleDateFormat.format(date);
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        if (thursday.equals("a") || thursday.equals("A")) {
-            thursdayDate = "Open All Day";
-        } else if (thursday.equals("n") || thursday.equals("N")) {
-            thursdayDate = "Closed All Day";
-        } else {
-            if (thursday.contains(";")) {
-                thursdayMultipleTimes = thursday.split(";");
-
-                for (String thursdayMultipleTime : thursdayMultipleTimes) {
-                    thursdayTimes = thursdayMultipleTime.split("-");
-                    try {
-                        for (int t = 0; t < thursdayTimes.length - 1; t += 2) {
-                            Date date;
-                            if (thursdayDate == null) {
-                                date = simpleDateInput.parse(thursdayTimes[t]);
-                                thursdayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(thursdayTimes[t + 1]);
-                                thursdayDate += " - " + simpleDateFormat.format(date);
-
-                            } else {
-                                date = simpleDateInput.parse(thursdayTimes[t]);
-                                thursdayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(thursdayTimes[t + 1]);
-                                thursdayDate += " - " + simpleDateFormat.format(date);
-                            }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-                thursdayTimes = thursday.split("-");
-                try {
-                    for (String thursdayTime : thursdayTimes) {
-                        Date date;
-                        if (thursdayDate == null) {
-                            date = simpleDateInput.parse(thursdayTime);
-                            thursdayDate = "" + simpleDateFormat.format(date);
-                        } else {
-                            date = simpleDateInput.parse(thursdayTime);
-                            thursdayDate += " - " + simpleDateFormat.format(date);
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        if (friday.equals("a") || friday.equals("A")) {
-            fridayDate = "Open All Day";
-        } else if (friday.equals("n") || friday.equals("N")) {
-            fridayDate = "Closed All Day";
-        } else {
-            if (friday.contains(";")) {
-                fridayMultipleTimes = friday.split(";");
-
-                for (String fridayMultipleTime : fridayMultipleTimes) {
-                    fridayTimes = fridayMultipleTime.split("-");
-                    try {
-                        for (int t = 0; t < fridayTimes.length - 1; t += 2) {
-                            Date date;
-                            if (fridayDate == null) {
-                                date = simpleDateInput.parse(fridayTimes[t]);
-                                fridayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(fridayTimes[t + 1]);
-                                fridayDate += " - " + simpleDateFormat.format(date);
-
-                            } else {
-                                date = simpleDateInput.parse(fridayTimes[t]);
-                                fridayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(fridayTimes[t + 1]);
-                                fridayDate += " - " + simpleDateFormat.format(date);
-                            }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-                fridayTimes = friday.split("-");
-                try {
-                    for (String fridayTime : fridayTimes) {
-                        Date date;
-                        if (fridayDate == null) {
-                            date = simpleDateInput.parse(fridayTime);
-                            fridayDate = "" + simpleDateFormat.format(date);
-                        } else {
-                            date = simpleDateInput.parse(fridayTime);
-                            fridayDate += " - " + simpleDateFormat.format(date);
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        if (saturday.equals("a") || saturday.equals("A")) {
-            saturdayDate = "Open All Day";
-        } else if (saturday.equals("n") || saturday.equals("N")) {
-            saturdayDate = "Closed All Day";
-        } else {
-            if (saturday.contains(";")) {
-                saturdayMultipleTimes = saturday.split(";");
-
-                for (String saturdayMultipleTime : saturdayMultipleTimes) {
-                    saturdayTimes = saturdayMultipleTime.split("-");
-                    try {
-                        for (int t = 0; t < saturdayTimes.length - 1; t += 2) {
-                            Date date;
-                            if (saturdayDate == null) {
-                                date = simpleDateInput.parse(saturdayTimes[t]);
-                                saturdayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(saturdayTimes[t + 1]);
-                                saturdayDate += " - " + simpleDateFormat.format(date);
-
-                            } else {
-                                date = simpleDateInput.parse(saturdayTimes[t]);
-                                saturdayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(saturdayTimes[t + 1]);
-                                saturdayDate += " - " + simpleDateFormat.format(date);
-                            }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-                saturdayTimes = saturday.split("-");
-                try {
-                    for (String saturdayTime : saturdayTimes) {
-                        Date date;
-                        if (saturdayDate == null) {
-                            date = simpleDateInput.parse(saturdayTime);
-                            saturdayDate = "" + simpleDateFormat.format(date);
-                        } else {
-                            date = simpleDateInput.parse(saturdayTime);
-                            saturdayDate += " - " + simpleDateFormat.format(date);
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        if (sunday.equals("a") || sunday.equals("A")) {
-            sundayDate = "Open All Day";
-        } else if (sunday.equals("n") || sunday.equals("N")) {
-            sundayDate = "Closed All Day";
-        } else {
-            if (sunday.contains(";")) {
-                sundayMultipleTimes = sunday.split(";");
-
-                for (String sundayMultipleTime : sundayMultipleTimes) {
-                    sundayTimes = sundayMultipleTime.split("-");
-                    try {
-                        for (int t = 0; t < sundayTimes.length - 1; t += 2) {
-                            Date date;
-                            if (sundayDate == null) {
-                                date = simpleDateInput.parse(sundayTimes[t]);
-                                sundayDate = "" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(sundayTimes[t + 1]);
-                                sundayDate += " - " + simpleDateFormat.format(date);
-
-                            } else {
-                                date = simpleDateInput.parse(sundayTimes[t]);
-                                sundayDate += ",\n" + simpleDateFormat.format(date);
-                                date = simpleDateInput.parse(sundayTimes[t + 1]);
-                                sundayDate += " - " + simpleDateFormat.format(date);
-                            }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-                sundayTimes = sunday.split("-");
-                try {
-                    for (String sundayTime : sundayTimes) {
-                        Date date;
-                        if (sundayDate == null) {
-                            date = simpleDateInput.parse(sundayTime);
-                            sundayDate = "" + simpleDateFormat.format(date);
-                        } else {
-                            date = simpleDateInput.parse(sundayTime);
-                            sundayDate += " - " + simpleDateFormat.format(date);
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        return false;
     }
 
     public String getName() {
@@ -509,13 +233,5 @@ public class Building {
 
     public boolean isCurrentlyOpen() {
         return currentlyOpen;
-    }
-
-    public String[] getTimeOpen() {
-        return saturdayMultipleTimes;
-    }
-
-    public String[] getTimeClose() {
-        return saturdayTimes;
     }
 }

@@ -2,12 +2,16 @@ package edu.pwageselon.elonlocator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +27,8 @@ public class AcademicsActivity extends Activity {
 
     private ArrayList<Building> buildings = new ArrayList<>();
 
+    private boolean open;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +38,30 @@ public class AcademicsActivity extends Activity {
         listView.setOnItemClickListener(onItemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        adapter = new SpecialAdapter(this, android.R.layout.simple_list_item_1) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(Color.WHITE);
+
+                if (buildings.get(position).isCurrentlyOpen()) {
+                    view.setBackgroundColor(Color.rgb(53, 94, 59));
+                } else {
+                    view.setBackgroundColor(Color.rgb(168, 40, 40));
+                }
+                return view;
+            }
+
+        };
+        listView.setAdapter(adapter);
 
         BufferedReader reader = null;
 
         try {
             reader = new BufferedReader(new InputStreamReader(getAssets().open(fileName)));
-
-            listView.setAdapter(adapter);
 
             String line;
             reader.readLine();
@@ -57,12 +79,9 @@ public class AcademicsActivity extends Activity {
                 String saturday = rowData[8];
                 String sunday = rowData[9];
 
-                Building building = new Building(name, latitude, longitude, monday, tuesday,
+                final Building building = new Building(name, latitude, longitude, monday, tuesday,
                         wednesday, thursday, friday, saturday, sunday);
                 buildings.add(building);
-
-                adapter.add(name);
-                adapter.add("" + building.isCurrentlyOpen());
 
             }
         } catch (IOException e) {
@@ -75,6 +94,10 @@ public class AcademicsActivity extends Activity {
                     e.printStackTrace();
                 }
             }
+        }
+
+        for (int i = 0; i < buildings.size(); i++) {
+            adapter.add(buildings.get(i).getName());
         }
     }
 

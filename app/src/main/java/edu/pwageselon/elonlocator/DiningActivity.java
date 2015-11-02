@@ -2,12 +2,16 @@ package edu.pwageselon.elonlocator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +28,8 @@ public class DiningActivity extends Activity {
 
     private ArrayList<Building> buildings = new ArrayList<>();
 
+    private boolean open;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +39,30 @@ public class DiningActivity extends Activity {
         listView.setOnItemClickListener(onItemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        adapter = new SpecialAdapter(this, android.R.layout.simple_list_item_1) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(Color.WHITE);
+
+                if (buildings.get(position).isCurrentlyOpen()) {
+                    view.setBackgroundColor(Color.rgb(53, 94, 59));
+                } else {
+                    view.setBackgroundColor(Color.rgb(168, 40, 40));
+                }
+                return view;
+            }
+
+        };
+        listView.setAdapter(adapter);
 
         BufferedReader reader = null;
 
         try {
             reader = new BufferedReader(new InputStreamReader(getAssets().open(fileName)));
-
-            listView.setAdapter(adapter);
 
             String line;
             reader.readLine();
@@ -62,19 +84,6 @@ public class DiningActivity extends Activity {
                         wednesday, thursday, friday, saturday, sunday);
                 buildings.add(building);
 
-                adapter.add(name);
-                adapter.add("" + building.isCurrentlyOpen());
-
-                int times = 0;
-                int multitimes = 0;
-                if (building.getTimeClose() != null) {
-                    times = building.getTimeClose().length;
-                }
-
-                if (building.getTimeOpen() != null) {
-                    multitimes = building.getTimeOpen().length;
-                }
-                adapter.add("Times: " + times + " Multitimes: " + multitimes);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,6 +95,10 @@ public class DiningActivity extends Activity {
                     e.printStackTrace();
                 }
             }
+        }
+
+        for (int i = 0; i < buildings.size(); i++) {
+            adapter.add(buildings.get(i).getName());
         }
     }
 
