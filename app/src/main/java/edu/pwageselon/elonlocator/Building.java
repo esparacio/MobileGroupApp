@@ -165,7 +165,7 @@ public class Building {
                         System.out.println("TODAY: " + today.getTime() + " CLOSE: " + timeClose.getTime() + " OPEN: " + timeOpen.getTime());
 
                         if (today.after(timeOpen) &&  today.before(timeClose)) {
-                            return false;
+                            return true;
                         }
                     }
                 }
@@ -184,7 +184,7 @@ public class Building {
                 System.out.println("222TODAY: " + today.getTime() + " CLOSE: " + timeClose.getTime() + " OPEN: " + timeOpen.getTime());
 
                 if (today.after(timeOpen) &&  today.before(timeClose)) {
-                    return false;
+                    return true;
                 }
             }
         }

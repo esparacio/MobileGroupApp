@@ -27,5 +27,9 @@
     <string name="placeholder">07:00 AM - 08:00 PM</string>
     <string name="okay_button">OK</string>
     <string name="title_activity_maps_delete">Map</string>
+    <string name="title_activity_info">InfoActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

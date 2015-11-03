@@ -64,9 +64,21 @@
         android:onClick="launchOther"
         />
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_height"
     android:background="@color/elon_red" />
+
+    <Button
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/info_icon"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="launchInfo"
+
+
+        />
 
 </LinearLayout>

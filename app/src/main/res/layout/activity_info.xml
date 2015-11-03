@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.pwageselon.elonlocator.InfoActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Information"
+        android:textAppearance="?android:attr/textAppearanceLarge">
+
+    </TextView>
+ 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="To begin, choose a category. To get directions to the selected location, press and hold the name of the location. To get hours of operation, tap the name of the location."
+        >
+
+    </TextView>
+
+
+
+    <Button
+        android:id="@+id/okay_button"
+        android:layout_width="@dimen/dialog_text_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dialog_text_margin"
+        android:text="@string/okay_button" />
+
+</LinearLayout>

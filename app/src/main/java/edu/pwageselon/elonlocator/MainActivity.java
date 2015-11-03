@@ -37,4 +37,10 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, OtherActivity.class);
         startActivity(intent);
     }
+    public void launchInfo(View view) {
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+    }
+
+
 }
